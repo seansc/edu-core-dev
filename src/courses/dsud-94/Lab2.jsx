@@ -56,15 +56,9 @@ yarn run start`}
 />
 
 <Snippet step="36" language="properties"
-    code={`[ui]
-label = Buttercup Coffee Company
-
-[launcher]
-author = <your name>
+    code={`label = Buttercup Coffee Company
 description = Supply Chain Management
 version = 1.0.0
-
-[install]
 is_configured = 0`}
 />
 

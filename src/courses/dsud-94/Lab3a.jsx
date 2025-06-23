@@ -120,33 +120,35 @@ useEffect(() => {
         step="13"
         language="jsx"
         code={`// ==== Single Value 3 Search – Shipping Costs ====
-useEffect(() => {
-	const sv3Search = SearchJob.create({
-		search: \`index=bccscm sourcetype=scm:logistics | stats sum(shipCost) as ShippingCosts\`,
-		...SEARCH_TIME_RANGE,
-	});
-
-	const subscription = sv3Search.getResults().subscribe({
-		next: (results) => {
-			console.log("ShippingCosts data received:", results);
-			if (results?.results?.length) {
-				const latestDataPoint = results.results[results.results.length - 1];
-				setShippingCosts(Number(latestDataPoint?.ShippingCosts) || 0);
-			} else {
-				setShippingCosts(0);
-				setShippingSparklineData([]);
-			}
-			setLoadingShippingCosts(false);
-		},
-		error: (err) => {
-			console.error("Error fetching Shipping Costs results:", err);
-			setShippingCosts(0);
-			setLoadingShippingCosts(false);
-		},
-	});
-	
-	return () => subscription.unsubscribe();
-}, []);`}
+   useEffect(() => {
+     const sv3Search = SearchJob.create({
+       search: `index=bccscm sourcetype=scm:logistics | stats sum(shipCost) as ShippingCosts`,
+       ...SEARCH_TIME_RANGE,
+     });
+  
+     const subscription = sv3Search.getResults().subscribe({
+       next: (results) => {
+         console.log("ShippingCosts data received:", results);
+  
+         if (results?.results?.length) {
+           const latestDataPoint = results.results[results.results.length - 1];
+           setShippingCosts(Number(latestDataPoint?.ShippingCosts) || 0);
+           
+         } else {
+            setShippingCosts(0);
+         }
+          setLoadingShippingCosts(false);
+        },
+        error: (err) => {
+          console.error("Error fetching Shipping Costs results:", err);
+          setShippingCosts(0);
+          setLoadingShippingCosts(false);
+        },
+      });
+  
+      return () => subscription.unsubscribe();
+    }, []);
+`}
       />
 
       <Snippet

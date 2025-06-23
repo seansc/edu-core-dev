@@ -52,35 +52,36 @@ const [loadingShippingCosts, setLoadingShippingCosts] = useState(true);`}
         step="11"
         language="jsx"
         code={`// ==== Single Value 1 Search - Kilos Purchased ====
-useEffect(() => {
-	const sv1Search = SearchJob.create({
-		search: \`index=bccscm sourcetype=scm:logistics | stats sum(Amount) as KilosPurchased\`,
-		...SEARCH_TIME_RANGE,
-	});
+    useEffect(() => {
+      const sv1Search = SearchJob.create({
+          search: `index=bccscm sourcetype=scm:logistics | stats sum(Amount) as KilosPurchased`,
+          ...SEARCH_TIME_RANGE,
+      });
+  
+      const subscription = sv1Search.getResults().subscribe({
+       next: (results) => {
+         console.log("KilosPurchased data received:", results);
+  
+         if (results?.results?.length) {
+            const latestDataPoint = results.results[results.results.length - 1];
+            setKilosPurchased(Number(latestDataPoint?.KilosPurchased) || 0);
+         } else {
+             setKilosPurchased(0);
+          }
+              setLoadingKilosPurchased(false);
+          },
+          error: (err) => {
+              console.error("Error fetching KilosPurchased results:", err);
+              setKilosPurchased(0);
+              setLoadingKilosPurchased(false);
+          },
+      });
 
-	const subscription = sv1Search.getResults().subscribe({
-		next: (results) => {
-			console.log("KilosPurchased data received:", results);
-			setKilosPurchased(Number(results?.results?.[0]?.KilosPurchased) || 0);
-   
-			if (results?.results?.length) {
-   			setKilosPurchased(Number(latestDataPoint?.KilosPurchased) || 0);
-		       } else {
-			  setKiloBags(0);
-		       }
-		       setLoadingKilosPurchased(false);
-		   },
-		   error: (err) => {
-		      console.error("Error fetching KilosPurchased results:", err);
-		      setKilosPurchased(0);
-		      setLoadingKilosPurchased(false);
-		  },
-	      });
-	
-	  return () => {
-		  subscription.unsubscribe();
-	      };
-	  }, []);`}
+  return () => {
+          subscription.unsubscribe();
+      };
+  }, []);
+`}
       />
 
       <Snippet

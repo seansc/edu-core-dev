@@ -11,7 +11,9 @@ splunk-create`}
 
 <Snippet step="6" language="jsx"
     code={`import React from 'react';
+    
 import { StyledContainer } from './InventoryStyles';
+
 const Inventory = () => {
     return (
         <StyledContainer>

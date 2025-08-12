@@ -295,7 +295,7 @@ const valueField = transformedData.fields?.find(f =>
       />
 
       <Snippet
-        step="28"
+        step="30"
         language="js"
         code={`'@splunk/shipping': path.resolve(__dirname, '../shipping/src/Shipping.jsx'),
     
@@ -312,32 +312,32 @@ const valueField = transformedData.fields?.find(f =>
       />
 
       <Snippet
-        step="30"
+        step="32"
         language="bash"
         code={`cd ~/code
 yarn add -W --dev style-loader css-loader`}
       />
 
       <Snippet
-        step="31"
+        step="33"
         language="bash"
         code={`yarn run build
 yarn run start`}
       />
 
       <Snippet
-        step="32"
+        step="34"
         language="bash"
         code={`/opt/splunk/bin/splunk restart`}
       />
 
       <Snippet
-        step="34"
+        step="36"
         language="jsx"
         code={`import Shipping from '@splunk/shipping';`}
       />
 
-      <Snippet step="34" language="jsx" code={`<Shipping />`} />
+      <Snippet step="37" language="jsx" code={`<Shipping />`} />
     </div>
   );
 }
